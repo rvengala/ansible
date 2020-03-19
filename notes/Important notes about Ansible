@@ -25,6 +25,7 @@ ansible appgroup -m ping
 ansible all -m ping
 ansible all -m ping -o
 
+
 ansible all -m shell -a "uname -a; df -h"
 ansible all -m shell -a "uname -a; df -h" -v
 
@@ -45,5 +46,15 @@ ansible all -m copy -a "src=/tmp/testingfile dest=/tmp/testingfile" -s
 
 # Change Permissions - file, -s means sudo
 ansible all -m file -a ****
+
+
+
+About Ansible Playbooks
+=======================
+
+
+
+About Ansible Roles
+===================
 
 
