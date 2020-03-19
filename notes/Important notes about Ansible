@@ -1,6 +1,49 @@
-Dependet Packages for Ansible
------------------------------
+# Dependet Packages for Ansible
+# -----------------------------
 - Python
 - Ninja2
+- Disable Selinux - sestatus/ 
+- libselinux-python
+
+- 
+
+# Install Ansible
+# ---------------
+
+
+# Important Conf:
+# ---------------
+/etc/ansible/hosts
+/etc/ansible/
+
+
+# Important Commands
+# ------------------
+ansible-doc -l
+ansible-doc -s
+ansible appgroup -m ping 
+ansible all -m ping
+ansible all -m ping -o
+
+ansible all -m shell -a "uname -a; df -h"
+ansible all -m shell -a "uname -a; df -h" -v
+
+# Install http package, -s means sudo
+ansible appgroup -m yum -a "name=httpd state=present" -s
+
+# Install http package, -s means sudo
+ansible appgroup -m service -a "name=httpd state=started" -s
+
+# Install http package, -s means sudo
+ansible all -m yum -a "name=nmap state=present" -s
+
+# Install http package, -s means sudo
+ansible all -m yum -a "name=libselinux-python state=present" -s
+
+# Copy file http package, -s means sudo
+ansible all -m copy -a "src=/tmp/testingfile dest=/tmp/testingfile" -s
+
+# Change Permissions - file, -s means sudo
+ansible all -m file -a ****
 
 
