@@ -54,7 +54,15 @@ ansible all -m shell -a "uname -a; df -h" -v
 # command module 
 ansible -m command -a "uptime" clients
 ansible -m command  -a  "df -h" clients
+ansible clients -m command  -a  "df -h"
 ansible clients -m shell -a "uname -a; df -h"
+ansible  -m shell -a "uname -a; df -h" clients
+ansible -a "df -h" clients  -m command
+ansible -m user -a "name=user1 password=password1" clients
+
+#Setup 
+ansible clients -m setup
+ansible clients -m setup -a "filter=ansible_user"
 
 # Install http package, -s means sudo
 ansible appgroup -m yum -a "name=httpd state=present" -s
