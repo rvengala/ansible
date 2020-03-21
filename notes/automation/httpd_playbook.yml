@@ -9,5 +9,7 @@
   tasks: 
   - name: Install http package
     yum: name=httpd state=installed
+  - name: Enable Httpd Service the service
+    service: name=httpd enabled=yes
   - name: Start the Service
     service: name=httpd state=restarted
