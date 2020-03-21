@@ -1,0 +1,13 @@
+# Commands
+## ansible-playbook httpd_playbook.yml --syntax-check
+## ansible-playbook --check httpd_playbook.yml
+## ansible-playbook httpd_playbook_old.yml --list-hosts
+---
+- hosts: clients
+  become: true
+  become_user: root
+  tasks: 
+  - name: Install http package
+    yum: name=httpd state=installed
+  - name: Start the Service
+    service: name=httpd state=restarted
