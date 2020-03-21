@@ -1,3 +1,11 @@
+Important Notes
+===============
+Agent Less Architecture
+it require Python
+It require ssh on client machines
+
+
+
 # Dependet Packages for Ansible
 # -----------------------------
 - Python
@@ -9,6 +17,17 @@
 
 # Install Ansible
 # ---------------
+yum install epel-release -y
+yum install ansible -y
+yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools
+
+
+
+# Setup SSH passprase less
+---------------------------
+# ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
+ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 
 # Important Conf:
@@ -58,3 +77,8 @@ About Ansible Roles
 ===================
 
 
+
+
+
+Ansible Installation
+=====================
