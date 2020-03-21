@@ -40,16 +40,25 @@ cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 # ------------------
 ansible-doc -l
 ansible-doc -s
+ansible-doc copy
+
+ansible -m ping clients  //#  ansible -m ping <group name>
 ansible appgroup -m ping 
 ansible all -m ping
 ansible all -m ping -o
 
-
+# Shell Commands
 ansible all -m shell -a "uname -a; df -h"
 ansible all -m shell -a "uname -a; df -h" -v
 
+# command module 
+ansible -m command -a "uptime" clients
+ansible -m command  -a  "df -h" clients
+ansible clients -m shell -a "uname -a; df -h"
+
 # Install http package, -s means sudo
 ansible appgroup -m yum -a "name=httpd state=present" -s
+
 
 # Install http package, -s means sudo
 ansible appgroup -m service -a "name=httpd state=started" -s
