@@ -6,6 +6,27 @@ It require ssh on client machines
 
 
 
+### Architecture
+### 
+   Playbooks 
+        -> Plays
+              -> tasks
+                  -> Modules
+
+
+###
+Playbook 
+    What - CONFIGS/PKS
+
+    WHERE - Inventory File 
+            Ansible/Host file 
+              [grp1]
+              ip1
+             
+              [grp2]
+              ip2
+
+
 # Dependet Packages for Ansible
 # -----------------------------
 - Python
@@ -13,14 +34,12 @@ It require ssh on client machines
 - Disable Selinux - sestatus/ 
 - libselinux-python
 
-- 
 
 # Install Ansible
 # ---------------
 yum install epel-release -y
 yum install ansible -y
 yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools
-
 
 
 # Setup SSH passprase less
@@ -32,20 +51,25 @@ cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 # Important Conf:
 # ---------------
-/etc/ansible/hosts
+/etc/ansible/hosts        ## Should add groups and Slave host information
 /etc/ansible/
 
 
-# Important Commands
-# ------------------
+##### Important Commands
+ansible all -m ping
+ansible all -m ping -o        ??? what is -o   -b become/sudo   -k ??
+ansible -b -K -m user  ?????
+ansible -m service sshh 
+ansible -m setup all
+
+
 ansible-doc -l
 ansible-doc -s
 ansible-doc copy
 
+# Ping Commands
 ansible -m ping clients  //#  ansible -m ping <group name>
 ansible appgroup -m ping 
-ansible all -m ping
-ansible all -m ping -o
 
 # Shell Commands
 ansible all -m shell -a "uname -a; df -h"
@@ -98,3 +122,7 @@ About Ansible Roles
 
 Ansible Installation
 =====================
+
+
+
+
