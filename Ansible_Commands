@@ -1,1 +1,24 @@
 
+### 
+   Playbooks 
+        -> Plays
+              -> tasks
+                  -> Modules
+
+
+###
+Playbook 
+    What - CONFIGS/PKS
+
+    WHERE - Inventory File 
+            Ansible/Host file 
+              [grp1]
+              ip1
+             
+              [grp2]
+              ip2
+
+
+
+          
+  
