@@ -41,19 +41,20 @@ yum install epel-release -y
 yum install ansible -y
 yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools
 
-
 # Setup SSH passprase less
 ---------------------------
 # ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa 2>/dev/null <<< y >/dev/null
 ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
 cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
-
+Note : make sue ssh password less setup
 
 # Important Conf:
 # ---------------
-/etc/ansible/hosts        ## Should add groups and Slave host information
-/etc/ansible/
-
+vim /etc/ansible/hosts        ## Should add groups and Slave host information
+   add below lines at end of the files (o not delete defauls)
+   [clients]
+   client1.infoftps.com
+   client2.infoftps.com
 
 ##### Important Commands
 ansible all -m ping
@@ -61,16 +62,15 @@ ansible all -m ping -o        ??? what is -o ( -o, --one-line )   -b become/sudo
 ansible -b -K -m user  ?????
 ansible -m service sshh 
 ansible -m setup all
-
-
-ansible-doc -l
-ansible-doc -s
-ansible-doc copy
-
-# Ping Commands
 ansible -m ping clients  //#  ansible -m ping <group name>
 ansible appgroup -m ping 
 ansible cllients -m ping 
+
+
+# get information modules
+ansible-doc -l
+ansible-doc -s
+ansible-doc copy
 
 # Shell Commands
 ansible all -m shell -a "uname -a; df -h"
@@ -129,7 +129,13 @@ About Ansible Roles
               
  Should playbook to call any roles, roles can't run independntly
 
-
+      Ansible Host FOlder  -> Roles -> Role-Name   -> Defaults
+                                                   -> vars
+                                                   -> Hanglers
+                                                   -> Tasks
+                                                   -> files
+                                                   -> Meta
+                                                   -> templates
 
 
 Ansible Installation
