@@ -57,7 +57,7 @@ cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
 
 ##### Important Commands
 ansible all -m ping
-ansible all -m ping -o        ??? what is -o   -b become/sudo   -k ??
+ansible all -m ping -o        ??? what is -o ( -o, --one-line )   -b become/sudo   -k ??
 ansible -b -K -m user  ?????
 ansible -m service sshh 
 ansible -m setup all
@@ -70,6 +70,7 @@ ansible-doc copy
 # Ping Commands
 ansible -m ping clients  //#  ansible -m ping <group name>
 ansible appgroup -m ping 
+ansible cllients -m ping 
 
 # Shell Commands
 ansible all -m shell -a "uname -a; df -h"
@@ -111,7 +112,8 @@ ansible all -m file -a ****
 
 About Ansible Playbooks
 =======================
-
+ -- inside playbooks -> modules
+            
 
 
 About Ansible Roles
@@ -124,5 +126,8 @@ Ansible Installation
 =====================
 
 
+Run Ansible 
+============
+ansible-playbook httpd_playbook.yml
 
 
