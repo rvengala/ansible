@@ -147,3 +147,43 @@ Run Ansible
 ansible-playbook httpd_playbook.yml
 
 
+
+###
+# ansible-galaxy
+      Usage: ansible-galaxy [delete|import|info|init|install|list|login|remove|search|setup] [--help] [options] ...
+
+      Options:
+        -h, --help            show this help message and exit
+        -c, --ignore-certs    Ignore SSL certificate validation errors.
+        -s API_SERVER, --server=API_SERVER
+                              The API server destination
+        -v, --verbose         verbose mode (-vvv for more, -vvvv to enable
+                              connection debugging)
+        --version             show program's version number and exit
+
+       See 'ansible-galaxy <command> --help' for more information on a specific
+      command.
+
+cd /etc/ansible/roles 
+ansible-galaxy init devrole
+      - devrole was created successfully
+
+cd /etc/ansible/roles ; ls
+     devrole
+cd devrole/ ; ll
+      total 4
+      drwxr-xr-x. 2 root root   22 Apr  1 00:31 defaults
+      drwxr-xr-x. 2 root root    6 Apr  1 00:31 files
+      drwxr-xr-x. 2 root root   22 Apr  1 00:31 handlers
+      drwxr-xr-x. 2 root root   22 Apr  1 00:31 meta
+      -rw-r--r--. 1 root root 1328 Apr  1 00:31 README.md
+      drwxr-xr-x. 2 root root   22 Apr  1 00:31 tasks
+      drwxr-xr-x. 2 root root    6 Apr  1 00:31 templates
+      drwxr-xr-x. 2 root root   39 Apr  1 00:31 tests
+      drwxr-xr-x. 2 root root   22 Apr  1 00:31 vars
+
+
+
+
+
+
