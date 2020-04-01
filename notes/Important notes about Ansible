@@ -114,10 +114,20 @@ About Ansible Playbooks
 =======================
  -- inside playbooks -> modules
             
-
-
+            Configs 
+            commands
+            
+            roles:
+               Dev
+ 
 About Ansible Roles
 ===================
+   Roles
+      Dev
+         Task
+              MAIN.YAML
+              
+ Should playbook to call any roles, roles can't run independntly
 
 
 
