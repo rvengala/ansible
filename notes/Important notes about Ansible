@@ -254,6 +254,25 @@ cat tasks/main.yaml
   notify: restart ntp service
 
 
+mkdir -p webstack/roles/common/tasks;cd /roles/common/tasks;
+cat main.yml
+---
+
+- name: Configuration DNS Client 
+  template: src=resolve.conf dest=/etc/resoolv.conf
+  tags: dns
+
+- name: Install ntp 
+  yum: name=ntp state=present 
+  tags: ntp
+
+- name: Copy ntp file
+  template: erc=ntp.conf dest=/etc/ntp.conf
+  tags: ntp 
+  notify: restart ntp service
+  
+  
+
 
 
 
