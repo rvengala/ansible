@@ -39,7 +39,8 @@ Playbook
 # ---------------
 yum install epel-release -y
 yum install ansible -y
-yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools
+yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools nmap
+
 
 # Setup SSH passprase less
 ---------------------------
@@ -57,8 +58,10 @@ vim /etc/ansible/hosts        ## Should add groups and Slave host information
    client2.infoftps.com
 
 ##### Important Commands
+ansible appgroup -m ping
+ansible dbgroup -m ping
 ansible all -m ping
-ansible all -m ping -o        ??? what is -o ( -o, --one-line )   -b become/sudo   -k ??
+ansible all -m ping -o        // -o ( -o, --one-line )   -b become/sudo   -k ??
 ansible -b -K -m user  ?????
 ansible -m service sshh 
 ansible -m setup all
@@ -74,7 +77,8 @@ ansible-doc copy
 
 # Shell Commands
 ansible all -m shell -a "uname -a; df -h"
-ansible all -m shell -a "uname -a; df -h" -v
+ansible all -m shell -a "uname -a; df -h" -v    //-v verbos
+ansible all -m shell -a "yum install nmap -y" 
 
 # command module 
 ansible -m command -a "uptime" clients
@@ -92,12 +96,11 @@ ansible clients -m setup -a "filter=ansible_user"
 # Install http package, -s means sudo
 ansible appgroup -m yum -a "name=httpd state=present" -s
 
-
 # Install http package, -s means sudo
 ansible appgroup -m service -a "name=httpd state=started" -s
 
 # Install http package, -s means sudo
-ansible all -m yum -a "name=nmap state=present" -s
+ansible all -m yum -a "name=nmap state=present" -s    //Install nmap
 
 # Install http package, -s means sudo
 ansible all -m yum -a "name=libselinux-python state=present" -s
@@ -122,6 +125,18 @@ About Ansible Playbooks
  
 About Ansible Roles
 ===================
+# Roles ain Ansible ate next level of abstaraction of ansible playbooks
+# Benfit 
+      - 
+      
+# Strusture 
+files          : Containins regular files those need to copied to the target hosts
+handlers       : Event handlers 
+meta           : Role Dependencies 
+templates      : Similar to files, but it contains dynamic data
+tasks          : playbook tasks
+var/group_vars : variables definations
+
    Roles
       Dev
          Task
@@ -129,22 +144,19 @@ About Ansible Roles
               
  Should playbook to call any roles, roles can't run independntly
 
-      Ansible Host FOlder  -> Roles -> Role-Name   -> Defaults
-                                                   -> vars
-                                                   -> Hanglers
-                                                   -> Tasks
-                                                   -> files
-                                                   -> Meta
-                                                   -> templates
+Ansible Host FOlder  -> Roles -> Role-Name    -> Defaults
+                                              -> vars
+                                              -> Hanglers
+                                              -> Tasks
+                                              -> files
+                                              -> Meta
+                                              -> templates
 
 
-Ansible Installation
-=====================
 
-
-Run Ansible 
-============
-ansible-playbook httpd_playbook.yml
+                  Run Ansible 
+                  ============
+                  ansible-playbook httpd_playbook.yml
 
 
 
