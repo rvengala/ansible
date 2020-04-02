@@ -38,7 +38,7 @@ Playbook
 # Install Ansible
 # ---------------
 yum install epel-release -y
-yum install ansible -y
+yum install ansible tree -y
 yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools nmap
 
 
@@ -111,6 +111,7 @@ ansible all -m copy -a "src=/tmp/testingfile dest=/tmp/testingfile" -s
 # Change Permissions - file, -s means sudo
 ansible all -m file -a ****
 
+####
 
 
 About Ansible Playbooks
@@ -154,10 +155,6 @@ Ansible Host FOlder  -> Roles -> Role-Name    -> Defaults
 
 
 
-                  Run Ansible 
-                  ============
-                  ansible-playbook httpd_playbook.yml
-
 
 
 ###
@@ -193,6 +190,68 @@ cd devrole/ ; ll
       drwxr-xr-x. 2 root root    6 Apr  1 00:31 templates
       drwxr-xr-x. 2 root root   39 Apr  1 00:31 tests
       drwxr-xr-x. 2 root root   22 Apr  1 00:31 vars
+
+
+
+
+Run Ansible 
+============
+ansible-playbook httpd_playbook.yml
+ansible-playbook --check httpd_playbook.yml
+
+
+## Example 1 : Install httpd
+----------------------------
+cd /etc/ansible
+
+cat httpd_playbook.yml
+---
+- hosts: all
+  become: true
+  become_user: root
+  tasks:
+  - name: install httpd package
+    yum: name=httpd state=present
+  - name: start the service
+    service: name=httpd state=restarted
+ 
+ RUN : ansible-playbook --check httpd_playbook.yml
+ 
+ 
+##  Example 2 : 
+----------------
+#
+mkdir webstack;cd webstack
+mkdir group_vars; cd group_vars; touch group_vars/all
+
+cat group_vars/all
+---
+
+dnsserver: 192.168.0.110
+ntpserver: 8.8.8.8
+
+# 
+cd webstack; touch hosts
+
+# 
+cd webstack; touch main.yaml
+
+#
+cat tasks/main.yaml
+---
+
+- name: Configuration DNS Client
+  template: src=resolv.conf dest=/etc/resolv.conf
+  tags: dns
+  
+- name: Install NTP Service 
+  yum: name=ntp state=present
+  tags: dns
+
+- name: Copy ntp file
+  template: src=ntp.conf dest=/etc/ntp.conf
+  tags: ntp
+  notify: restart ntp service
 
 
 
