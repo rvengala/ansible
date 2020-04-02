@@ -254,7 +254,7 @@ cat tasks/main.yaml
   notify: restart ntp service
 
 
-mkdir -p webstack/roles/common/tasks;cd /roles/common/tasks;
+mkdir -p /webstack/roles/common/tasks;cd /webstack/roles/common/tasks;
 cat main.yml
 ---
 
@@ -271,9 +271,33 @@ cat main.yml
   tags: ntp 
   notify: restart ntp service
   
+
+mkdir -p /webstack/roles/common/handlers;cd /webstack/roles/common/handlers
+cat main.yml
+---
+
+- name: restart ntp service 
+  service: name=ntpd starte=started
   
+  
+mkdir -p /webstack/roles/common/templates;cd /webstack/roles/common/templates
+cat ntp.conf
+## Ansible maned file... Don't handedit
+driftfile /var/lib/ntp/drift
+
+restrict 127.0.0.1
+restrict -6 ::1
+
+server {{ ntpserver }}
+
+includefile /etc/ntp/crypto/pw
+
+keys /etc/ntp/keys
 
 
 
+mkdir -p /webstack/roles/web/files;cd /webstack/roles/web/files
+cat index.html
+<html>
 
 
