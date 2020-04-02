@@ -222,6 +222,42 @@ cat httpd_playbook.yml
 ----------------
 #
 mkdir webstack;cd webstack
+cat hosts
+[all]
+client1.infoftps.com
+client2.infoftps.com
+
+[webservers]
+replserver.infoftps.com
+
+# cd webstack
+cat main.yml
+---
+
+- hosts: all
+  tasks: 
+  
+- name: apply common configurations
+  hosts: all
+  user: root
+  become: yes
+  become_method: sudo
+  tasks: 
+  
+  roles:
+    - common
+  
+- name: Install and configure apache webservers
+  hosts: webservers
+  user: root
+  become: yes
+  become_method: sudo
+  tasks: 
+  
+  roles:
+    - web
+
+#
 mkdir group_vars; cd group_vars; touch group_vars/all
 
 cat group_vars/all
