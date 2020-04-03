@@ -200,7 +200,7 @@ ansible-playbook httpd_playbook.yml
 ansible-playbook --check httpd_playbook.yml
 
 
-## Example 1 : Install httpd
+## Example-1 : Install httpd
 ----------------------------
 cd /etc/ansible
 
@@ -218,10 +218,11 @@ cat httpd_playbook.yml
  RUN : ansible-playbook --check httpd_playbook.yml
  
  
-##  Example 2 : 
-----------------
+##  Example-2 : 
+---------------
 #
-mkdir webstack;cd webstack
+mkdir -p /root/ansible; cd /root/ansible
+mkdir webstack;cd webstack;touch hosts
 cat hosts
 [all]
 client1.infoftps.com
@@ -230,7 +231,7 @@ client2.infoftps.com
 [webservers]
 replserver.infoftps.com
 
-# cd webstack
+# cd /root/ansible/webstack
 cat main.yml
 ---
 
@@ -258,65 +259,46 @@ cat main.yml
     - web
 
 #
-mkdir group_vars; cd group_vars; touch group_vars/all
+cd /root/ansible/webstack; mkdir group_vars; cd group_vars; touch all
 
-cat group_vars/all
+cat all
 ---
 
 dnsserver: 192.168.0.110
 ntpserver: 8.8.8.8
 
-# 
-cd webstack; touch hosts
 
 # 
-cd webstack; touch main.yaml
+mkdir -p /root/ansible/webstack/roles/common/tasks; cd /root/ansible/webstack/roles/common/tasks; touch main.yaml
 
 #
-cat tasks/main.yaml
+cat main.yaml
 ---
 
 - name: Configuration DNS Client
-  template: src=resolv.conf dest=/etc/resolv.conf
+  template: src=test.conf dest=/etc/test.conf
   tags: dns
   
 - name: Install NTP Service 
   yum: name=ntp state=present
-  tags: dns
+  tags: ntp
 
 - name: Copy ntp file
   template: src=ntp.conf dest=/etc/ntp.conf
   tags: ntp
   notify: restart ntp service
 
+ 
 
-mkdir -p /webstack/roles/common/tasks;cd /webstack/roles/common/tasks;
+mkdir -p /root/ansible/webstack/roles/common/handlers;cd /root/ansible/webstack/roles/common/handlers; touch main.yml
 cat main.yml
 ---
 
-- name: Configuration DNS Client 
-  template: src=resolve.conf dest=/etc/resoolv.conf
-  tags: dns
-
-- name: Install ntp 
-  yum: name=ntp state=present 
-  tags: ntp
-
-- name: Copy ntp file
-  template: erc=ntp.conf dest=/etc/ntp.conf
-  tags: ntp 
-  notify: restart ntp service
-  
-
-mkdir -p /webstack/roles/common/handlers;cd /webstack/roles/common/handlers
-cat main.yml
----
-
-- name: restart ntp service 
+- name: restart ntp service
   service: name=ntpd starte=started
   
-  
-mkdir -p /webstack/roles/common/templates;cd /webstack/roles/common/templates
+#  
+mkdir -p /root/ansible/webstack/roles/common/templates;cd /root/ansible/webstack/roles/common/templates; touch ntp.conf
 cat ntp.conf
 ## Ansible maned file... Don't handedit
 driftfile /var/lib/ntp/drift
@@ -330,9 +312,8 @@ includefile /etc/ntp/crypto/pw
 
 keys /etc/ntp/keys
 
-
-
-mkdir -p /webstack/roles/web/files;cd /webstack/roles/web/files
+#
+mkdir -p /root/ansible/webstack/roles/web/files;cd /root/ansible/webstack/roles/web/files
 cat index.html
 <HTML>
    <HEAD>
@@ -355,7 +336,7 @@ cat index.html
 </HTML>
 
 #
-mkdir -p /webstack/roles/web/tasks;cd /webstack/roles/web/tasks;
+mkdir -p /root/ansible/webstack/roles/web/tasks;cd /root/ansible/webstack/roles/web/tasks;
 cat main.yml
 ---
 
@@ -371,7 +352,7 @@ cat main.yml
   notify: restart apache service 
 
 # 
-mkdir -p /webstack/roles/web/handlers;cd /webstack/roles/web/handlers
+mkdir -p /root/ansible/webstack/roles/web/handlers;cd /root/ansible/webstack/roles/web/handlers
 cat main.yml
 ---
 
