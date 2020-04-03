@@ -41,6 +41,11 @@ yum install epel-release -y
 yum install ansible tree -y
 yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools nmap
 
+# Usefull Commands
+for HOST in devops client1 client1 client2; do ssh ${HOST} date;done
+for HOST in devops client1 client1 client2; do ssh ${HOST} cp -p /etc/ntp.conf /etc/ntp.conf.orig;done
+
+
 
 # Setup SSH passprase less
 ---------------------------
@@ -231,7 +236,7 @@ client2.infoftps.com
 [webservers]
 replserver.infoftps.com
 
-# cd /root/ansible/webstack
+# cd /root/ansible/webstack; touch main.yml
 cat main.yml
 ---
 
@@ -275,7 +280,7 @@ mkdir -p /root/ansible/webstack/roles/common/tasks; cd /root/ansible/webstack/ro
 cat main.yaml
 ---
 
-- name: Configuration DNS Client
+- name: Copy Configuration configuration file
   template: src=test.conf dest=/etc/test.conf
   tags: dns
   
@@ -313,7 +318,7 @@ includefile /etc/ntp/crypto/pw
 keys /etc/ntp/keys
 
 #
-mkdir -p /root/ansible/webstack/roles/web/files;cd /root/ansible/webstack/roles/web/files
+mkdir -p /root/ansible/webstack/roles/web/files;cd /root/ansible/webstack/roles/web/files; touch index.html
 cat index.html
 <HTML>
    <HEAD>
@@ -336,7 +341,7 @@ cat index.html
 </HTML>
 
 #
-mkdir -p /root/ansible/webstack/roles/web/tasks;cd /root/ansible/webstack/roles/web/tasks;
+mkdir -p /root/ansible/webstack/roles/web/tasks;cd /root/ansible/webstack/roles/web/tasks; touch main.yml
 cat main.yml
 ---
 
@@ -352,7 +357,7 @@ cat main.yml
   notify: restart apache service 
 
 # 
-mkdir -p /root/ansible/webstack/roles/web/handlers;cd /root/ansible/webstack/roles/web/handlers
+mkdir -p /root/ansible/webstack/roles/web/handlers;cd /root/ansible/webstack/roles/web/handlers; touch main.yml
 cat main.yml
 ---
 
