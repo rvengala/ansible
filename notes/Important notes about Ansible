@@ -360,3 +360,6 @@ cat main.yml
   service: name=httpd starte=started
   
 ### RUN PLAY BOOK 
+cd /root/ansible/webstack/
+ansible-playbook --check main.yml -i hosts 
+
