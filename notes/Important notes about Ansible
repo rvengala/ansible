@@ -463,12 +463,10 @@ cat usermanagement.yaml
                tags: Remove_groups
  
  # RUN Ansibble
- ansible-playbook usermanagement.yaml --tags add_new_group
- 
-
-              
-           
-           
+ ansible-playbook usermanagement.yaml --list-tags
+ ansible-playbook usermanagement.yaml --tags add_new_group --ckeck
+ ansible-playbook usermanagement.yaml --tags add_new_user --ckeck
+ ansible-playbook usermanagement.yaml --tags generate_ssh_keys --check       
 
 
 Example-3
