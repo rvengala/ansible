@@ -461,7 +461,10 @@ cat usermanagement.yaml
                   - demogrp1
                   - demogrp2
                tags: Remove_groups
-               
+ 
+ # RUN Ansibble
+ ansible-playbook usermanagement.yaml --tags add_new_group
+ 
 
               
            
