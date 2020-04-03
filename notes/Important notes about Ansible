@@ -373,8 +373,86 @@ ansible-playbook --check main.yml -i hosts -v
 ansible-playbook --check main.yml -l replserver -i hosts --tags apache -v  ( not executaed --limit)
 
 ansible-playbook main.yml -i hosts -v
+
 ansible-playbook main.yml -i hosts -v
 
 ansible-playbook main.yml -i hosts --tags dns  -v
 ansible-playbook --check main.yml -i hosts --tags apache -v
 
+
+
+## User Management
+
+- host: all
+  become_user: root
+  
+  tasks:
+      
+      #This taskk create groups
+      - name: add a group
+        group:
+          name={{ item }}
+          state=present 
+        with_items:
+          - demogrp
+          - demogrp1
+          - demogrp2
+        tags: add_new_group
+        
+        # This task adds several users on the target machine, for/standard loop used
+        - name: add server users
+          user:
+           name={{ item }}
+           state=present
+           groups=demogrp
+           password=demogrp
+           passwd="hadoop01"
+           shell=/bin/bash
+          with_items:
+           - demouser1
+           - demouser2
+           - demouser3
+           - demouser4
+          tags: add_new_user
+          
+          # This Task Generate puplic keys for user
+          - name: generate ssh keys for a user
+            user:
+              name={{ item }}
+              generate_ssh_keys=yes
+              ssh_key_bits=4096
+              ssh_key_file=.ssh/id_rsa
+            with_items:
+               - demouser1
+            tags: generate_ssh_keys
+            
+            # This task is to copy the public keys to user account
+            -name: update authorized keys for a user
+            authorized_keys:
+                 user: demouser1
+                 state: present 
+                 key: "{{ lookup('file', '/home/demouser1/.ssh/id_rsa.pub') }}
+            tags: copy_pub_key
+            
+            # This task is to delete the user
+            -name: delete server users
+            user:
+               name:{{ item }}
+               state=absent
+               
+              
+           
+           
+
+
+Example-3
+----------
+Create EC2 instance
+
+- hosts: localhosts
+  
+  tasks:
+      - name: Setting up Security/Firewall Group
+      ec2_group:
+         name: DevOps Ravi
+   
