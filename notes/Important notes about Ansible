@@ -370,8 +370,11 @@ cat main.yml
 cd /root/ansible/webstack/
 ansible-playbook --check main.yml -i hosts 
 ansible-playbook --check main.yml -i hosts -v
+ansible-playbook --check main.yml -l replserver -i hosts --tags apache -v  ( not executaed --limit)
+
 ansible-playbook main.yml -i hosts -v
 ansible-playbook main.yml -i hosts -v
 
-ansible-playbook main.yml -i hosts --tags dns
+ansible-playbook main.yml -i hosts --tags dns  -v
+ansible-playbook --check main.yml -i hosts --tags apache -v
 
