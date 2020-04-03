@@ -42,9 +42,9 @@ yum install ansible tree -y
 yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools nmap
 
 # Usefull Commands
-for HOST in devops client1 client1 client2; do ssh ${HOST} date;done
-for HOST in devops client1 client1 client2; do ssh ${HOST} cp -p /etc/ntp.conf /etc/ntp.conf.orig;done
-
+for HOST in devops client1 client2 replserver; do ssh ${HOST} date;done
+for HOST in devops client1 client2 replserver; do ssh ${HOST} cp -p /etc/ntp.conf /etc/ntp.conf.orig;done
+for HOST in devops client1 client2 replserver; do ssh ${HOST} ls -ltra /etc/test.conf;done
 
 
 # Setup SSH passprase less
@@ -300,7 +300,7 @@ cat main.yml
 ---
 
 - name: restart ntp service
-  service: name=ntpd starte=started
+  service: name=ntpd state=started
   
 #  
 mkdir -p /root/ansible/webstack/roles/common/templates;cd /root/ansible/webstack/roles/common/templates; touch ntp.conf
@@ -347,7 +347,7 @@ cat main.yml
 
 - name: Install apache packages
   yum: name={{ item }} state=present
-  with_items
+  with_items:
    - httpd
    - httpd_tools
    
@@ -362,7 +362,7 @@ cat main.yml
 ---
 
 - name: restart apache service 
-  service: name=httpd starte=started
+  service: name=httpd state=started
   
 ### RUN PLAY BOOK 
 cd /root/ansible/webstack/
