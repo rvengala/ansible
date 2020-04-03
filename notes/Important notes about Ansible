@@ -45,6 +45,8 @@ yum -y install ntp wget dos2unix curl bind-utils telnet vim lsof unzip net-tools
 for HOST in devops client1 client2 replserver; do ssh ${HOST} date;done
 for HOST in devops client1 client2 replserver; do ssh ${HOST} cp -p /etc/ntp.conf /etc/ntp.conf.orig;done
 for HOST in devops client1 client2 replserver; do ssh ${HOST} ls -ltra /etc/test.conf;done
+for HOST in devops client1 client2 replserver; do ssh ${HOST} ls -ltrad /var/www/httml;done
+
 
 
 # Setup SSH passprase less
@@ -352,7 +354,7 @@ cat main.yml
    - httpd_tools
    
 - name: Copy Apache Index file 
-  copy: src=index.html dest=/var/www/httml/index.html
+  copy: src=index.html dest=/var/www/html/index.html
   tags: apache
   notify: restart apache service 
 
@@ -367,4 +369,9 @@ cat main.yml
 ### RUN PLAY BOOK 
 cd /root/ansible/webstack/
 ansible-playbook --check main.yml -i hosts 
+ansible-playbook --check main.yml -i hosts -v
+ansible-playbook main.yml -i hosts -v
+ansible-playbook main.yml -i hosts -v
+
+ansible-playbook main.yml -i hosts --tags dns
 
