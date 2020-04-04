@@ -1,6 +1,7 @@
 
-# Ansible for Operating Systems Patch Management
+# cat linuxpatching.yml
 
+# Ansible for Operating Systems Patch Management
 # Demo Ansible playbook to perform patching on RHEL/Centos server
 
 - hosts: dev-redhat
@@ -59,7 +60,14 @@
       when: reboot_started|changed           
 
 
+# Usefull commmands
+ansible -m ping all
+ansible -m setup all | grep ansible_distribution
+ansible dev-redhat -m shell -a "uname -a:uptime"
+ansible dev-redhat -m shell -a "ps -paf  | grep http"
 
+## RUN Playbook 
+ansible-playbook linuxpatching.yml
 
 
 
