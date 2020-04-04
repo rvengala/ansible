@@ -70,6 +70,5 @@ ansible -i /etc/ansible/hosts -m shell -a "ntpq -p" all
 ansible-playbook ntpmanagement.yaml
 asible -i /etc/ansible/hosts -m shell -a "ntp -p" all
 
-
-
+ansible -i /etc/ansible/hosts -m shell -a "ntpq -p" all
 
