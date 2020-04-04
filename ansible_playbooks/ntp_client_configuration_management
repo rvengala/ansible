@@ -1,0 +1,48 @@
+#  Rrelated commands
+ansible -i /etc/ansible/hosts -m shell -a "ntpq -p" all
+ansible -i /etc/ansible/hosts -m shell -a "rpm -qa | grep ntp" all
+
+
+# cat ntpmanagement.tml
+## 
+
+---
+- hosts: all
+  become_user: root
+  
+  vars:
+    ntp_server1: ntp1.infoftps.com
+    ntp_server2: ntp2.infoftps.com
+    
+ tasks:
+    # This task is to ensure chrony is not installed. having chrony and ntp both on system may cause issue.
+    - name: remove chrony client package from the system
+      yum:
+         name=chrony
+         state=absent
+      tags: remove_chrony,start_ntp
+      
+    # this task is to ensure ntp package is installed.
+    - name: check/install ntp client package
+      yum:
+        name=ntp
+        state=present
+      tags; install_ntp,start_ntp
+    
+    # This task is to copy the custom ntp.conf file
+    - name; deploy ntp.conf file to the clients
+      template:
+          src=templates/ntp.j2
+          dest=/etc/ntp.conf
+          owner=root
+          group=root
+          mode=0644
+          backup=yes
+       notify: start_restart_ntp_client
+       tags: copy_ntp_conf,start_ntp
+      
+      
+      
+      
+          
+      
