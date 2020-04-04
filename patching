@@ -65,6 +65,7 @@ ansible -m ping all
 ansible -m setup all | grep ansible_distribution
 ansible dev-redhat -m shell -a "uname -a:uptime"
 ansible dev-redhat -m shell -a "ps -paf  | grep http"
+ansible dev-redhat -l <hostname> -m shell -a "systemctl stop httpd.service" 
 
 ## RUN Playbook 
 ansible-playbook linuxpatching.yml
