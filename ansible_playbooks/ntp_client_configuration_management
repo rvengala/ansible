@@ -65,6 +65,23 @@ keys /etc/ntp/keys
 disable monitor
 
 
+# cat templates/ntp.j2
+## NTP config - Manged using Ansible
+## Please don't edit manaully 
+
+driftfile /var/lib/ntp/drift
+restrict default nomodift notrap nopeer noquery 
+restrict 127.0.0.1
+restrict ::1
+
+server {{ ntp_server1 }} iburst
+server {{ ntp_server1 }} iburst
+
+keys /etc/ntp/keys
+disable monitor
+
+
+
 # RUN PLAYBOOK
 ansible -i /etc/ansible/hosts -m shell -a "ntpq -p" all
 ansible-playbook ntpmanagement.yaml
