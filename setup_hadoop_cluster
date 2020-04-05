@@ -67,4 +67,26 @@ git clone https://github.com/cloudera/cloudera-playbook.git
 
 
 # run playbook
+ansible-playbook -i hosts site.yml --syntax-check
+ansible-playbook -i hosts site.yml --check
+
+
+#####  ERRORS/SOLUTIONS
+
+1:
+ERROR:
+TASK [java : set_fact] ********************************************************************************
+fatal: [cdpcluster.infoftps.com]: FAILED! => {"msg": "The task includes an option with an undefined variable. 
+The error was: 'dict object' has no attribute 'stdout_lines'\n\n The error appears to have been 
+in '/root/cloudera-playbook/roles/java/tasks/main.yml': line 58, column 3, but may\nbe elsewhere in the file depending 
+on the exact syntax problem.\n\nThe offending line appears to be:\n\n\n- set_fact:\n  ^ here\n\nexception
+type: <class 'ansible.errors.AnsibleUndefinedVariable'>\nexception: 'dict object' has no attribute 'stdout_lines'"}
+        to retry, use: --limit @/root/cloudera-playbook/site.retry
+
+PLAY RECAP ********************************************************************************************
+cdpcluster.infoftps.com    : ok=10   changed=6    unreachable=0    failed=1
+
+SOLUTION:
+
+
 
