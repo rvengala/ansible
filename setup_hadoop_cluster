@@ -4,9 +4,15 @@
 # https://software.danielwatrous.com/install-and-configure-a-multi-node-hadoop-cluster-using-ansible/   ( Build CDH with Ansible)
 # https://github.com/dwatrous/hadoop-multi-server-ansible (Git:Build CDH with Ansible)
 
+# Template information
+https://docs.cloudera.com/documentation/enterprise/6/6.3/topics/install_cluster_template.html
+
 # Use full commands
 ansible-galaxy install trustedanalytics.cdh-configuration
+ansible all -m authorized_key -a key="{{ lookup('file', '~/.ssh/id_rsa.pub') }} user=$USER" --ask-pass -u $USER --become-user $USER
+ansible all -m authorized_key -a key="{{ lookup('file', '~/.ssh/id_rsa.pub') }} user=root" --ask-pass -u root
 
+cat all | grep -v "^#"
 
 ## Doubts
 # What is vm.swappiness
@@ -46,8 +52,15 @@ echo "#                                                                         
 echo "# Hadoop Swapping reduces the job performance, you should have maximum data in-memory and tune your OS so that it will do memory swap only when there is situation like OOM " >> /etc/sysctl.conf
 echo "vm.swappiness=0" >> /etc/sysctl.conf
 
-
+# Reboot the machine
+init 6 or reboot
 
 # Ansible work
-mkdir cdh
+mkdir cdp_ansible 
 git clone https://github.com/cloudera/cloudera-playbook.git
+
+
+
+
+# run playbook
+
