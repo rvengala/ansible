@@ -59,6 +59,14 @@ echo "vm.swappiness=0" >> /etc/sysctl.conf
 # Reboot the machine
 init 6 or reboot
 
+#
+copy jdk to cdh cluster 
+
+# install on cdh cluster
+sudo yum install mysql-devel gcc gcc-devel python-devel
+sudo easy_install mysql-python
+
+
 # Ansible work
 mkdir cdp_ansible 
 git clone https://github.com/cloudera/cloudera-playbook.git
