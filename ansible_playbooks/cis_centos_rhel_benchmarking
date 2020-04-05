@@ -1,0 +1,10 @@
+# Apply CIS Security BenchMarking for RHEL./CentOS-6
+mkdir cis_benchmarking
+git clone https://github.com/major/cis-rhel-ansible.git
+
+# change hosts file
+vim hosts
+
+#  ansible-playbook playbook.yml -i hosts --list-tags
+#  ansible-playbook playbook.yml -i hosts --tags section7.1.1
+#  ansible-playbook playbook.yml -i hosts --tags section7
