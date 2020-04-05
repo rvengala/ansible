@@ -1,0 +1,47 @@
+## This is pre-requise to setup hadoop cluster through ansible
+## Usefull Links
+# https://blog.dbi-services.com/deploy-a-cloudera-cluster-with-terraform-and-ansible-in-azure-part-2/
+# https://software.danielwatrous.com/install-and-configure-a-multi-node-hadoop-cluster-using-ansible/   ( Build CDH with Ansible)
+# https://github.com/dwatrous/hadoop-multi-server-ansible (Git:Build CDH with Ansible)
+
+# Use full commands
+ansible-galaxy install trustedanalytics.cdh-configuration
+
+
+## Doubts
+# What is vm.swappiness
+# 
+
+1. build VM 
+2. setup dns
+3. disable Fw
+4. A password-less ssh connection to root user with a unique private keys must be configured
+5. SELinux disabled
+6. IPv6 disabled
+7. vm.swappiness kernel option must be set to a value less or equal to 10
+
+
+
+#!/bin/bash
+
+# Password less setup
+ssh-keygen -q -t rsa -N '' -f ~/.ssh/id_rsa
+cat /root/.ssh/id_rsa.pub >> /root/.ssh/authorized_keys
+
+# Disable FW
+firewall-cmd --state
+systemctl stop firewalld
+systemctl disable firewalld
+systemctl mask --now firewalld
+firewall-cmd --state
+
+# Disable SELinux
+cp -p /etc/selinux/config /etc/selinux/config.orig
+sed -i -e 's/enforcing/disabled/g' /etc/selinux/config
+
+# cp -p /etc/sysctl.conf /etc/sysctl.conf.orig
+echo "#                                                                             " >> /etc/sysctl.conf; done
+echo "# Hadoop Swapping reduces the job performance, you should have maximum data in-memory and tune your OS so that it will do memory swap only when there is situation like OOM " >> /etc/sysctl.conf
+echo "vm.swappiness=0" >> /etc/sysctl.conf
+
+
