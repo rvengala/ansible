@@ -1,0 +1,24 @@
+# Seucirity for Ansible playbooks/data/password   
+
+# Encrypt playbook
+ansible-vault encrypt paybook.yml
+
+# view/edit encrypted playbook
+ansible-vault view paybook.yml
+ansible-vault exit paybook.yml
+
+# Run encrypted playbok.yml
+ansible-playbook  playbook.yml --ask-vault-pass
+
+# Run encrypted playbok.yml (password based)
+ansible-playbook  playbook.yml --ask-vault-pass
+
+# Run encrypted playbok.yml (file base)
+echo "password" > vault-pass  
+ansible-playbook  playbook.yml --vault-password-file </path/password_file>
+
+# Change the paybook.yml password 
+ansible-playbook  rekey playbook.yml
+
+# Decrypt the playbook.yml
+ansible-playbook decrypt playbook.yml
