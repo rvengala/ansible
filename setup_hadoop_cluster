@@ -68,7 +68,6 @@ sudo easy_install mysql-python
 
 
 # Ansible work
-mkdir cdp_ansible 
 git clone https://github.com/cloudera/cloudera-playbook.git
 
 
