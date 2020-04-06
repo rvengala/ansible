@@ -13,10 +13,6 @@ ansible all -m authorized_key -a key="{{ lookup('file', '~/.ssh/id_rsa.pub') }} 
 ansible all -m authorized_key -a key="{{ lookup('file', '~/.ssh/id_rsa.pub') }} user=root" --ask-pass -u root
 
 cat all | grep -v "^#"
-# Java
-https://archive.cloudera.com/director/redhat/7/x86_64/director/2/RPMS/x86_64/oracle-j2sdk1.8-1.8.0+update121-1.x86_64.rpm
-curl -L -b "oraclelicense=a" http://download.oracle.com/otn-pub/java/jce/8/jce_policy-8.zip -O
-
 
 ## Doubts
 # What is vm.swappiness
@@ -71,6 +67,9 @@ sudo easy_install mysql-python
 git clone https://github.com/cloudera/cloudera-playbook.git
 cd cloudera-playbook
 add required information in hosts file [cdpcluster.infoftps.com]
+kerberos - none   /roles/
+change mysql password  -- var_groups/all
+mysql add - bind-hosts  -- roles/mariadb/file
 
 
 
