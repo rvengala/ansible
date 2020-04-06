@@ -69,7 +69,8 @@ sudo easy_install mysql-python
 
 # Ansible work
 git clone https://github.com/cloudera/cloudera-playbook.git
-
+cd cloudera-playbook
+add required information in hosts file [cdpcluster.infoftps.com]
 
 
 
