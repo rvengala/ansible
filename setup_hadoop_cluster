@@ -68,10 +68,9 @@ git clone https://github.com/cloudera/cloudera-playbook.git
 cd cloudera-playbook
 add required information in hosts file [cdpcluster.infoftps.com]
 in var_groups/all
-        change mysql password
         keberos realm
         kdc tipe - none
-in var_groups/dbserver.yml
+in var_groups/db_server.yml
         change mysql password
         add mysql_host: cdpcluster ip
 
