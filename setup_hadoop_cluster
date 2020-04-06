@@ -70,13 +70,13 @@ add required information in hosts file [cdpcluster.infoftps.com]
 in var_groups/all
         change mysql password
         keberos realm
-        kdc time
+        kdc tipe - none
 in var_groups/dbserver.yml
         change mysql password
-        add my_host: cdpcluster ip
-       
-mysql add - bind-hosts  -- roles/mariadb/file
+        add mysql_host: cdpcluster ip
 
+roles/mariadb/templates/my.cnf.j2
+        add - bind-hosts = {{ mysql_host }} 
 
 # run playbook
 ansible-playbook -i hosts site.yml --syntax-check
